@@ -1,0 +1,20 @@
+h1 Những đứa mượn sách
+a(href="/transactions/create") Cho Mượn
+br
+br
+table
+  tr
+    th id
+    th Tên thằng mượn
+    th Tên sách mượn
+    th Status
+  each transaction in transactions
+   tr
+     td=transaction.id
+     td=transaction.userId
+     td=transaction.bookId
+     if transaction.isComplete === false
+       td
+        a(href="/transactions/"+transaction.id+"/complete") Complete
+     else 
+       td="Đã trả"

@@ -1,0 +1,20 @@
+h1 Users
+a(href="/users/create") New
+form(action="/users/search" method="GET")
+  input(type="text" name="q" value=value ? value : '')
+  button Search
+table(style="border:1px solid black; width: 50%; border-collapse: collapse;")
+  tr(style="text-align:center")
+    th Name
+    th Phone
+    th Tools
+  each user in users  
+   tr(style="text-align:center")
+     td=user.name
+     td=user.phone
+     td
+       a(href="/users/view/"+user.id) View
+       span &nbsp
+       a(href="/users/update/"+user.id) Update
+       span &nbsp
+       a(href="/users/"+user.id+"/delete") Delete
