@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const controller = require("../controllers/user.controller");
+const validate = require("../validates/user.validate");
 
 router.get("/", controller.index);
 
 router.get("/create", controller.getCreate);
 
-router.post("/create", controller.postCreate);
+router.post("/create", validate.postCreate ,controller.postCreate);
 
 router.get("/view/:id", controller.view);
 
