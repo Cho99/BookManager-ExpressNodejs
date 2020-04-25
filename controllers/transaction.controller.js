@@ -26,6 +26,18 @@ module.exports.postCreate = (req, res) => {
 
 module.exports.complete = (req, res) => {
   const id = req.params.id;
+  const transactions = db.get("transactions").value();  
+  let data = transactions.map(x => x.id ).find(x => x == id);
+  let error = "";
+  if (data == undefined) {
+    error = "Không tồn tại ID";
+  }
+  if(error !== "") {
+     res.render("transactions/index",{
+      transactions,
+      error
+    });
+  }
   db.get("transactions").find({id : id}).assign({isComplete: true}).write();
   res.redirect("back");
 };

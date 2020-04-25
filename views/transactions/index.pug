@@ -2,6 +2,9 @@ extends ../layouts/common
 
 block content
   h1 Những đứa mượn sách
+  if error
+    .alert.alert-danger= error
+    
   a(href="/transactions/create", class="btn btn-link") 
     h4 
       span(class="badge badge-primary") Cho Mượn
