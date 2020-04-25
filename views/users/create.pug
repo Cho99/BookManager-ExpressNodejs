@@ -1,7 +1,12 @@
-h1 Create Book
-form(method="POST")
-  label Name:
-  input(name="name", type="text")
-  label Phone:
-  input(name="phone", type="text")
-  button Create
+extends ../layouts/common
+
+block content
+  h1(class="text-center") Create Book
+  div(class="container")
+    form(method="POST")
+      div(class="form-group")
+        label(for="name") Name:
+        input(name="name", type="text", id="name", class="form-control")
+        label(for="phone") Phone:
+        input(name="phone", type="text", id="phone", class="form-control")
+      button(class="btn btn-success btn-lg") Create

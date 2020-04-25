@@ -1,20 +1,30 @@
-h1 Users
-a(href="/users/create") New
-form(action="/users/search" method="GET")
-  input(type="text" name="q" value=value ? value : '')
-  button Search
-table(style="border:1px solid black; width: 50%; border-collapse: collapse;")
-  tr(style="text-align:center")
-    th Name
-    th Phone
-    th Tools
-  each user in users  
-   tr(style="text-align:center")
-     td=user.name
-     td=user.phone
-     td
-       a(href="/users/view/"+user.id) View
-       span &nbsp
-       a(href="/users/update/"+user.id) Update
-       span &nbsp
-       a(href="/users/"+user.id+"/delete") Delete
+extends ../layouts/common
+
+block content
+  h1 Users
+  a(href="/users/create", class="btn btn-primary btn-lg") New
+  br
+  br
+  form(action="/users/search" method="GET")
+    div(class="form-group d-flex")
+      input(type="text", class="form-control" ,name="q" value=value ? value : '')
+      button(class="btn btn-light") Search
+  table(class="table")
+    thead(class="thead-light")
+      tr(style="text-align:center")
+        th Name
+        th Phone
+        th Tools
+      each user in users  
+       tr(style="text-align:center")
+         td=user.name
+         td=user.phone
+         td
+           a(href="/users/view/"+user.id)
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fbook.png?v=1587788199440")
+           span &nbsp
+           a(href="/users/update/"+user.id) 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Frefresh.png?v=1587788321812")
+           span &nbsp
+           a(href="/users/"+user.id+"/delete") 
+                          img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fdelete.png?v=1587788387153")
