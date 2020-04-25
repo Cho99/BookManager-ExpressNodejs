@@ -1,0 +1,11 @@
+h1 Cho mượn sách
+form(method="POST")
+  b User
+  select(name="userId")
+    each user in users
+      option(value=user.id)=user.name
+  b Book
+  select(name="bookId")
+    each book in books
+      option(value=book.id)=book.name
+  button Create

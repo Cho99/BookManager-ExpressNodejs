@@ -1,0 +1,20 @@
+h1 Book Management
+a(href="/books/create") New
+form(action="/books/search" method="GET")
+  input(type="text" name="q" value=value ? value : '')
+  button Search
+table(style="border:1px solid black; width: 50%; border-collapse: collapse;")
+  tr(style="text-align:center")
+    th Name
+    th Description
+    th Tools
+  each book in books  
+   tr(style="text-align:center")
+     td=book.name
+     td=book.description
+     td
+       a(href="/books/view/"+book.id) View
+       span &nbsp
+       a(href="/books/update/"+book.id) Update
+       span &nbsp
+       a(href="/books/"+book.id+"/delete") Delete
