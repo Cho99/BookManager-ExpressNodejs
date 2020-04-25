@@ -1,8 +1,11 @@
-h1 Update User
-form(action="/users/update",method="POST")
-  label Name:
-  input(name="id",type="hidden", value=user.id)
-  input(name="name", type="text", value=user.name)
-  label Phone:
-  input(name="phone", type="text",value=user.phone)
-  button Update
+extends ../layouts/common
+
+block content
+  h1 Update User
+  form(action="/users/update",method="POST")
+    label Name:
+    input(name="id",type="hidden", value=user.id)
+    input(name="name", type="text", value=user.name)
+    label Phone:
+    input(name="phone", type="text",value=user.phone)
+    button Update

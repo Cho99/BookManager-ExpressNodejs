@@ -1,20 +1,30 @@
-h1 Book Management
-a(href="/books/create") New
-form(action="/books/search" method="GET")
-  input(type="text" name="q" value=value ? value : '')
-  button Search
-table(style="border:1px solid black; width: 50%; border-collapse: collapse;")
-  tr(style="text-align:center")
-    th Name
-    th Description
-    th Tools
-  each book in books  
-   tr(style="text-align:center")
-     td=book.name
-     td=book.description
-     td
-       a(href="/books/view/"+book.id) View
-       span &nbsp
-       a(href="/books/update/"+book.id) Update
-       span &nbsp
-       a(href="/books/"+book.id+"/delete") Delete
+extends ../layouts/common
+
+block content
+  h1(class="text-center") Book Management
+  a(href="/books/create", class="btn btn-primary btn-lg") New
+  br
+  br
+  form(action="/books/search",method="GET")
+    div(class="form-group d-flex")
+      input(type="text",class="form-control w-50" ,name="q" value=value ? value : '')
+      button(class="btn btn-light") Search
+  table(class="table")
+    thead(class="thead-light")
+      tr(style="text-align:center")
+        th Name
+        th Description
+        th Tools
+      each book in books  
+       tr(style="text-align:center")
+         td=book.name
+         td=book.description
+         td
+           a(href="/books/view/"+book.id,alt="view") 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fbook.png?v=1587788199440")
+           span &nbsp
+           a(href="/books/update/"+book.id) 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Frefresh.png?v=1587788321812")
+           span &nbsp
+           a(href="/books/"+book.id+"/delete") 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fdelete.png?v=1587788387153")

@@ -1,9 +1,12 @@
-h1 Welcome to My Bookstore
+extends ./layouts/common
 
-a(href="/books") My Books
-br
-br
-a(href="/users") Users
-br
-br
-a(href="/transactions") Transactions
+block content
+  h1(class="display-4 text-center") Welcome to My Bookstore
+
+  a(href="/books", class="btn btn-primary btn-lg btn-block") My Books
+  br
+  br
+  a(href="/users", class="btn btn-secondary btn-lg btn-block") Users
+  br
+  br
+  a(href="/transactions", class="btn btn-danger btn-lg btn-block") Transactions

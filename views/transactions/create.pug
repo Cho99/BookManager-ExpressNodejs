@@ -1,11 +1,17 @@
-h1 Cho mượn sách
-form(method="POST")
-  b User
-  select(name="userId")
-    each user in users
-      option(value=user.id)=user.name
-  b Book
-  select(name="bookId")
-    each book in books
-      option(value=book.id)=book.name
-  button Create
+extends ../layouts/common
+
+block content
+  h1(class="text-center") Cho mượn sách
+  div(class="container")
+    form(method="POST")
+      div(class="form-group")
+        label User
+        select(name="userId", class="form-control form-control-lg")
+          each user in users
+            option(value=user.id)=user.name
+      div(class="form-group")
+        label Book
+        select(name="bookId",class="form-control form-control-lg")
+          each book in books
+            option(value=book.id)=book.name
+      button(class="btn btn-success") Create
