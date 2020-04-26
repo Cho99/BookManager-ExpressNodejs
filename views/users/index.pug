@@ -13,11 +13,13 @@ block content
     thead(class="thead-light")
       tr(style="text-align:center")
         th Name
+        th Email
         th Phone
         th Tools
       each user in users  
        tr(style="text-align:center")
          td=user.name
+         td=user.email
          td=user.phone
          td
            a(href="/users/view/"+user.id)

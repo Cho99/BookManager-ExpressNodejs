@@ -17,12 +17,12 @@ module.exports.view = (req, res) => {
 };
 
 module.exports.getCreate = (req, res) => {
-  console.log(req.cookies);
   res.render("users/create");
 };
 
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
+  req.body.isAdmin = false;
   db.get("users").push(req.body).write();
   res.redirect(".");
 };
@@ -39,7 +39,8 @@ module.exports.postUpdate = (req, res) => {
   var id = req.body.id;
   var name = req.body.name;
   var phone = req.body.phone;
-  db.get("users").find({id : id}).assign({name: name, phone: phone}).write();
+  var email = req.body.email;
+  db.get("users").find({id : id}).assign({name: name, phone: phone, email: email}).write();
   res.redirect(".");
 };
 
