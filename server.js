@@ -24,9 +24,7 @@ app.use(cookieParser());
 app.use(express.static("public"));
 
 app.get("/",validate.authLogin ,(req, res) =>{
-  res.render("index", {
-    user : db.get("users").find({id : req.cookies.userId}).value()
-  });
+  res.render("index");
 }); 
 
 //Books

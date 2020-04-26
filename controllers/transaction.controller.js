@@ -1,10 +1,20 @@
-var shortid = require("shortid");
-var db = require("../db");
+let shortid = require("shortid");
+let db = require("../db");
 
 module.exports.index = (req, res) => {
   var transactions = db.get("transactions").value();
+   console.log(transactions.userId);
+  let user = db.get("users").find({id : req.cookies.userId}).value();
+  
+  if(user.isAdmin !== true) {
+      transactions = db.get("transactions").value().filter(tran => {
+        return tran.userId == user.id;
+      });
+  }
+  console.log(transactions);
   res.render("transactions/index", {
-    transactions
+    transactions,
+    user
   });
 };
   

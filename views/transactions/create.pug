@@ -8,7 +8,8 @@ block content
         label User
         select(name="userId", class="form-control form-control-lg")
           each user in users
-            option(value=user.id)=user.name
+            if(user.isAdmin !== true)
+              option(value=user.id)=user.name
       div(class="form-group")
         label Book
         select(name="bookId",class="form-control form-control-lg")
