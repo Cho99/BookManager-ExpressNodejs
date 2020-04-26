@@ -97,18 +97,7 @@
       "bookId": "phEllwU4l",
       "id": "AR5ut6--d",
       "isComplete": true
-    },
-    {
-      "userId": "FHd-QaoqyI",
-      "bookId": "phEllwU4l",
-      "id": "SYT4TzMAP",
-      "isComplete": true
-    },
-    {
-      "userId": "FHd-QaoqyI",
-      "bookId": "phEllwU4l",
-      "id": "G3ULY8UFy",
-      "isComplete": true
     }
-  ]
+  ],
+  "count": 10
 }

@@ -17,6 +17,7 @@ module.exports.view = (req, res) => {
 };
 
 module.exports.getCreate = (req, res) => {
+  console.log(req.cookies);
   res.render("users/create");
 };
 
