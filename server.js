@@ -6,10 +6,12 @@
 const express = require("express");
 var cookieParser = require('cookie-parser');
 
+const db = require("./db");
 const userRoute = require("./routes/user.route");
 const bookRoute = require("./routes/book.route");
+const authRoute = require("./routes/auth.route");
 const transactionRoute = require("./routes/transaction.route");
-const validate = require("./validates/countCookie.validate");
+const validate = require("./validates/auth.validate");
 
 const app = express();
 app.set("view engine", "pug");
@@ -21,17 +23,20 @@ app.use(cookieParser());
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) =>{
-  res.cookie("user-id", "Dog");
-  res.render("index");
+app.get("/",validate.authLogin ,(req, res) =>{
+  res.render("index", {
+    user : db.get("users").find({id : req.cookies.userId}).value()
+  });
 }); 
 
 //Books
-app.use("/books",validate.countCookie ,bookRoute);
+app.use("/books",validate.authLogin ,bookRoute);
 //Users
-app.use("/users",validate.countCookie ,userRoute);
+app.use("/users",validate.authLogin ,userRoute);
 //Transactions
-app.use("/transactions",validate.countCookie ,transactionRoute);
+app.use("/transactions",validate.authLogin ,transactionRoute);
+//auth
+app.use("/auth", authRoute);
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);

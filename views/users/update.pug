@@ -8,4 +8,8 @@ block content
     input(name="name", type="text", value=user.name)
     label Phone:
     input(name="phone", type="text",value=user.phone)
+    label(for="email") Email*:
+    input(name="email", type="text", id="email", class="form-control" value=user.email)
+    label(for="password") Password:
+    input(name="password", type="password", id="password", class="form-control" value="123123")
     button Update

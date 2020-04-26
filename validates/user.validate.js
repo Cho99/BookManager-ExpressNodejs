@@ -1,6 +1,7 @@
 module.exports.postCreate = (req, res, next) => {
   let name = req.body.name;
   let phone = req.body.phone;
+  let email = req.body.email;
   let errors = [];
   
   if(name.length > 30) {
@@ -13,6 +14,9 @@ module.exports.postCreate = (req, res, next) => {
     errors.push("Name is required");
   }
   if(!phone) {
+    errors.push("Phone is required");
+  }
+  if(!email) {
     errors.push("Phone is required");
   }
   if (errors.length) {
