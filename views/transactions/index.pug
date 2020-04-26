@@ -1,13 +1,16 @@
 extends ../layouts/common
 
 block content
-  h1 Những đứa mượn sách
+  if user.isAdmin == true
+    h1 Những đứa mượn sách
+  else 
+    h1 Sách đã mượn của bạn Dog
   if error
     .alert.alert-danger= error
-    
-  a(href="/transactions/create", class="btn btn-link") 
-    h4 
-      span(class="badge badge-primary") Cho Mượn
+  if user.isAdmin == true
+    a(href="/transactions/create", class="btn btn-link") 
+      h4 
+        span(class="badge badge-primary") Cho Mượn
   br
   br
   table(class="table table-bordered text-center")
@@ -22,9 +25,12 @@ block content
          td=transaction.id
          td=transaction.userId
          td=transaction.bookId
-         if transaction.isComplete === false
-           td
-            a(href="/transactions/"+transaction.id+"/complete", class="btn btn-success") Complete
-         else 
-           td
-             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fcomplete.png?v=1587787268468")
+         if user.isAdmin == true || transaction.isComplete == true
+           if transaction.isComplete == false
+             td
+              a(href="/transactions/"+transaction.id+"/complete", class="btn btn-success") Complete
+           else 
+             td
+               img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fcomplete.png?v=1587787268468")
+         else
+           td Hãy Trả Sách

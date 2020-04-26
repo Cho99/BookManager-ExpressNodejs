@@ -11,7 +11,6 @@ module.exports.authLogin = (req, res, next) => {
     res.redirect("/auth/login");
     return;
   }
-
   next();
 }
 
