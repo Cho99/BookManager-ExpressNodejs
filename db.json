@@ -24,7 +24,7 @@
       "email": "dog@gmail.com",
       "password": "$2b$10$pwmku0d0V0T21KYVOXVVneaGYj3YSAabj7PDZqHRPvpmB0jQcgqtS",
       "isAdmin": true,
-      "wrongLoginCount": "0"
+      "wrongLoginCount": "01"
     },
     {
       "name": "Quang Anh Bùi",
