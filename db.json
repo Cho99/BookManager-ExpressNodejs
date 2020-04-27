@@ -22,24 +22,27 @@
       "phone": "09312823",
       "id": "FHd-QaoqyI",
       "email": "dog@gmail.com",
-      "password": "123123",
-      "isAdmin": true
+      "password": "$2b$10$pwmku0d0V0T21KYVOXVVneaGYj3YSAabj7PDZqHRPvpmB0jQcgqtS",
+      "isAdmin": true,
+      "wrongLoginCount": "0"
     },
     {
       "name": "Quang Anh Bùi",
       "phone": "0816812219",
       "email": "quangsoi99@gmail.com",
-      "password": "123123",
+      "password": "$2b$10$HMYPr.Qc0SAvp7iCzyw/muw7jh1FbezB5yJzvb2rUresffHZtI3eG",
       "id": "OstRNomXP",
-      "isAdmin": false
+      "isAdmin": false,
+      "wrongLoginCount": "0"
     },
     {
       "name": "CodersX",
       "phone": "0816812219",
       "email": "codersx@gmail.com",
-      "password": "123123",
+      "password": "$2b$10$oFAjTjFh2SvFxIoBNLa41e.xLN2H0Oghe8xlBA1wFgIaTeteRXMr.",
       "id": "ZNMPWO2vb",
-      "isAdmin": false
+      "isAdmin": false,
+      "wrongLoginCount": 5
     }
   ],
   "transactions": [

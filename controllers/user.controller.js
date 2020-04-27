@@ -1,4 +1,7 @@
 var shortid = require("shortid");
+var bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 var db = require("../db");
 
 module.exports.index = (req, res) => {
@@ -21,10 +24,14 @@ module.exports.getCreate = (req, res) => {
 };
 
 module.exports.postCreate = (req, res) => {
-  req.body.id = shortid.generate();
-  req.body.isAdmin = false;
-  db.get("users").push(req.body).write();
-  res.redirect(".");
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    req.body.id = shortid.generate();
+    req.body.password = hash;
+    req.body.wrongLoginCount = 0;
+    req.body.isAdmin = false;
+    db.get("users").push(req.body).write(); 
+    res.redirect(".");
+  })
 };
 
 module.exports.getUpdate = (req, res) => {
@@ -36,12 +43,16 @@ module.exports.getUpdate = (req, res) => {
 };
 
 module.exports.postUpdate = (req, res) => {
-  var id = req.body.id;
-  var name = req.body.name;
-  var phone = req.body.phone;
-  var email = req.body.email;
-  db.get("users").find({id : id}).assign({name: name, phone: phone, email: email}).write();
-  res.redirect(".");
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+    var id = req.body.id;
+    var name = req.body.name;
+    var phone = req.body.phone;
+    var email = req.body.email;
+    var wrongLoginCount = parseInt(req.body.wrongLoginCount);
+    var password = hash;
+    db.get("users").find({id : id}).assign({name: name, phone: phone, email: email, password:password, wrongLoginCount: wrongLoginCount}).write();
+    res.redirect(".");
+  })
 };
 
 module.exports.delete = (req, res) => {

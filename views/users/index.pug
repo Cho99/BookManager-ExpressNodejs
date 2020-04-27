@@ -15,12 +15,14 @@ block content
         th Name
         th Email
         th Phone
+        th numberLogin
         th Tools
       each user in users  
        tr(style="text-align:center")
          td=user.name
          td=user.email
          td=user.phone
+         td=user.wrongLoginCount
          td
            a(href="/users/view/"+user.id)
              img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fbook.png?v=1587788199440")
