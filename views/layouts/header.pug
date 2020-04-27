@@ -1,0 +1,18 @@
+nav.navbar.navbar-light.bg-light
+  a.navbar-brand(href='#')
+    img.d-inline-block.align-top(src='/docs/4.0/assets/brand/bootstrap-solid.svg' width='30' height='30' alt='')
+    |     Coders-X||Dog
+  #navbarNav.collapse.navbar-collapse
+    ul.navbar-nav
+      li.nav-item.active
+        a.nav-link(href="/")
+          | Home 
+      li.nav-item
+        a.nav-link(href='/books/') Book
+      li.nav-item
+        a.nav-link(href='/users/') User
+      li.nav-item
+        a.nav-link(href='/transactions') Transaction
+  if user
+    p=user.name
+        

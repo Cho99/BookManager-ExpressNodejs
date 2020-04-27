@@ -34,8 +34,10 @@ module.exports.postLogin = (req, res) => {
 
   
   bcrypt.compare(req.body.password, user.password, (err, result) => {
-    if (result == true) {
-        res.cookie("userId", user.id);
+    if (result) {
+        res.cookie("userId", user.id, {
+          signed: true
+        });
         res.redirect("/");
     } else {
        numberLogin = numberLogin + 1;
