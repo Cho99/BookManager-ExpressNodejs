@@ -1,6 +1,15 @@
-var bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+const nodemailer = require('nodemailer');
 const saltRounds = 10;
-var db = require("../db");
+const db = require("../db");
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: "dogsendmail@gmail.com",
+    pass: "04101995a"
+  }
+});
 
 module.exports.login = (req, res) => {
   res.render("auth/login");
@@ -20,7 +29,25 @@ module.exports.postLogin = (req, res) => {
   });
   }
   
-  var numberLogin =  user.wrongLoginCount;
+  const mailOptions = {
+    from: "no-Dog",
+    to: user.email,
+    subject: '[THÔNG BÁO] Bảo Mật Tài Khảon',
+    html: '<h1>Hãy cẩn thận cho lần đăng nhập tiếp theo bạn còn 2 lần đăng nhập nữa</h1><p>Nếu bạn đăng nhập quá 4 lần tài khoản sẽ bị khóa</p>'
+  };
+  
+  
+  var numberLogin =  parseInt(user.wrongLoginCount);
+  console.log(numberLogin);
+  if(numberLogin == 3) {
+      transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  }
   if(numberLogin > 4) {
     res.render("auth/login", {
         errors: [
@@ -31,8 +58,6 @@ module.exports.postLogin = (req, res) => {
     return;
   }
    
-
-  
   bcrypt.compare(req.body.password, user.password, (err, result) => {
     if (result) {
         res.cookie("userId", user.id, {
