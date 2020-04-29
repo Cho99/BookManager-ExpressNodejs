@@ -3,7 +3,7 @@ let db = require("../db");
 
 module.exports.index = (req, res) => {
   var transactions = db.get("transactions").value();
-  let user = db.get("users").find({id : req.cookies.userId}).value();
+  let user = db.get("users").find({id : req.signedCookies.userId}).value();
   
   if(user.isAdmin !== true) {
       transactions = db.get("transactions").value().filter(tran => {
