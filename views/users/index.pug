@@ -13,6 +13,7 @@ block content
   table(class="table")
     thead(class="thead-light")
       tr(style="text-align:center")
+        th Avatar
         th Name
         th Email
         th Phone
@@ -20,6 +21,11 @@ block content
         th Tools
       each user in users  
        tr(style="text-align:center")
+         td
+           if user.avatar == undefined
+             img(src="https://cdn.glitch.com/c0b69024-6d9c-467e-a7cc-669b2269dcb3%2Fcoders.png?v=1588236419282",width=32)
+           else
+             img(src=`https://satin-tattered-forest.glitch.me/${user.avatar}`,width=32)
          td=user.name
          td=user.email
          td=user.phone

@@ -3,7 +3,6 @@
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
-
 const express = require("express");
 var cookieParser = require('cookie-parser');
 
@@ -20,7 +19,7 @@ app.set("views", "./views");
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(cookieParser("12dasda^76213h@342#"));
 
 app.use(express.static("public"));
 

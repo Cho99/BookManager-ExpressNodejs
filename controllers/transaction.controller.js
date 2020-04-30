@@ -2,18 +2,29 @@ let shortid = require("shortid");
 let db = require("../db");
 
 module.exports.index = (req, res) => {
-  var transactions = db.get("transactions").value();
-  let user = db.get("users").find({id : req.signedCookies.userId}).value();
   
+  const page = parseInt(req.query.page) || 1;
+  const perPage = 3;
+  const start = (page - 1) * perPage;
+  const end = page * perPage;
+
+  const transactions = db.get("transactions").value().slice(start, end);
+  const pages = Math.ceil(db.get("transactions").value().length / perPage);
+  let user = db.get("users").find({id : req.signedCookies.userId}).value();
   if(user.isAdmin !== true) {
       transactions = db.get("transactions").value().filter(tran => {
         return tran.userId == user.id;
-      });
+      }).slice(start, end);
+      pages = Math.ceil(db.get("transactions").value().filter(tran => {
+        return tran.userId == user.id;
+      }) / perPage);
   }
-  console.log(transactions);
+  
   res.render("transactions/index", {
     transactions,
-    user
+    user,
+    pages,
+    currentPage: page
   });
 };
   
