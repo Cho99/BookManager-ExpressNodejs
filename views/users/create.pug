@@ -7,7 +7,7 @@ block content
    each error in errors
     .alert.alert-danger= error
   div(class="container")
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
       div(class="form-group")
         label(for="name") Name:
         input(name="name", type="text", id="name", class="form-control" value=value ? value.name : "")
@@ -17,4 +17,6 @@ block content
         input(name="email", type="text", id="email", class="form-control" value=value ? value.email : "")
         label(for="password") Password:
         input(name="password", type="password", id="password", class="form-control" value="123123")
+        label(for="avatar") Avatar:
+        input(name="avatar", type="file", id="avatar", class="form-control-file")
       button(class="btn btn-success btn-lg") Create

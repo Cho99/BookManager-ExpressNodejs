@@ -1,6 +1,13 @@
 var shortid = require("shortid");
 var bcrypt = require("bcrypt");
 const saltRounds = 10;
+var cloudinary = require("cloudinary");
+
+cloudinary.config({ 
+  cloud_name: 'dog99', 
+  api_key: process.env.API_KEY_FILE, 
+  api_secret: process.env.API_KEY_SECRET 
+});
 
 var db = require("../db");
 
@@ -28,6 +35,11 @@ module.exports.postCreate = (req, res) => {
     req.body.id = shortid.generate();
     req.body.password = hash;
     req.body.wrongLoginCount = 0;
+    req.body.avatar = req.file.path.split("/").slice(1).join("/");
+    cloudinary.v2.uploader.upload("https://satin-tattered-forest.glitch.me/"+req.body.avatar,{
+      folder: "images/avatar",
+      use_filename: true
+    });
     req.body.isAdmin = false;
     db.get("users").push(req.body).write(); 
     res.redirect(".");

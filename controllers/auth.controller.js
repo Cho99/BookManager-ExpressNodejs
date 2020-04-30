@@ -1,15 +1,18 @@
-const bcrypt = require("bcrypt");
+var bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
+var cloudinary = require("cloudinary");
 const saltRounds = 10;
-const db = require("../db");
+
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: "dogsendmail@gmail.com",
-    pass: "04101995a"
+    pass: process.env.PASSWORD_MAILER
   }
 });
+
+var db = require("../db");
 
 module.exports.login = (req, res) => {
   res.render("auth/login");
@@ -36,11 +39,9 @@ module.exports.postLogin = (req, res) => {
     html: '<h1>Hãy cẩn thận cho lần đăng nhập tiếp theo bạn còn 2 lần đăng nhập nữa</h1><p>Nếu bạn đăng nhập quá 4 lần tài khoản sẽ bị khóa</p>'
   };
   
-  
   var numberLogin =  parseInt(user.wrongLoginCount);
-  console.log(numberLogin);
   if(numberLogin == 3) {
-      transporter.sendMail(mailOptions, function(error, info){
+    transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
     } else {
@@ -58,6 +59,8 @@ module.exports.postLogin = (req, res) => {
     return;
   }
    
+
+  
   bcrypt.compare(req.body.password, user.password, (err, result) => {
     if (result) {
         res.cookie("userId", user.id, {
