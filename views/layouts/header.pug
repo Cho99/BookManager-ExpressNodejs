@@ -12,4 +12,13 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         a.nav-link(href='/transactions') Transactions
   if user
     p=user.name
+  else 
+    a(href="/auth/login", class="mr-2") Login
+  .border.border-warning.ml-1.rounded-lg
+    .d-flex.p-2.align-items-center
+     img(src="https://cdn.glitch.com/839bc4b7-934d-4adc-9247-cdd2f492dd43%2Fcart.png?v=1588341021409")
+     span.text-primary.ml-2.mr-2 Giỏ hàng có
+     span.bg-warning.rounded-lg.p-1=total
+    
+    
         

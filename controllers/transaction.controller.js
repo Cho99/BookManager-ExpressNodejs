@@ -11,15 +11,17 @@ module.exports.index = (req, res) => {
   const transactions = db.get("transactions").value().slice(start, end);
   const pages = Math.ceil(db.get("transactions").value().length / perPage);
   let user = db.get("users").find({id : req.signedCookies.userId}).value();
-  if(user.isAdmin !== true) {
+  if(user) {
+     if(user.isAdmin !== true) {
       transactions = db.get("transactions").value().filter(tran => {
         return tran.userId == user.id;
       }).slice(start, end);
       pages = Math.ceil(db.get("transactions").value().filter(tran => {
         return tran.userId == user.id;
       }) / perPage);
+    }
   }
-  
+ 
   res.render("transactions/index", {
     transactions,
     user,
