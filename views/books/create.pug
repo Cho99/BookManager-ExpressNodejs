@@ -3,10 +3,12 @@ extends ../layouts/common
 block content
   h1(class="text-center") Create Book
   div(class="container")
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
       div(class="form-group")
-        label Name:
-        input(name="name", type="text", class="form-control")
-        label Description:
-        input(name="description", type="text",class="form-control")
+        label(for="name") Name:
+        input(name="name", id="name" ,type="text", class="form-control")
+        label(for="description") Description:
+        input(name="description", id="description" ,type="text",class="form-control")
+        label(for="coverBook") Cover Book:
+        input(name="coverBook", type="file", id="coverBook",class="form-control-file")
       button(class="btn btn-success btn-lg") Create

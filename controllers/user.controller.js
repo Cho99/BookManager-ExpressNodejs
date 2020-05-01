@@ -36,7 +36,7 @@ module.exports.postCreate = (req, res) => {
     req.body.password = hash;
     req.body.wrongLoginCount = 0;
     req.body.avatar = req.file.path.split("/").slice(1).join("/");
-    cloudinary.v2.uploader.upload("https://satin-tattered-forest.glitch.me/"+req.body.avatar,{
+    cloudinary.v2.uploader.upload("https://session-lesson22.glitch.me/"+req.body.avatar,{
       folder: "images/avatar",
       use_filename: true
     });

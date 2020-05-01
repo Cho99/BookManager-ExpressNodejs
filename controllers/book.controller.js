@@ -1,4 +1,12 @@
 var shortid = require("shortid");
+var cloudinary = require("cloudinary");
+
+cloudinary.config({ 
+  cloud_name: 'dog99', 
+  api_key: process.env.API_KEY_FILE, 
+  api_secret: process.env.API_KEY_SECRET 
+});
+
 var db = require("../db");
 
 module.exports.index = (req, res) => {
@@ -22,6 +30,11 @@ module.exports.getCreate = (req, res) => {
 
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
+  req.body.coverUrl = req.file.path.split("/").slice(1).join("/");
+  cloudinary.v2.uploader.upload("https://session-lesson22.glitch.me/"+req.body.coverUrl,{
+    folder: "images/coverbook",
+    use_filename: true
+  });
   db.get("books")
     .push(req.body)
     .write();
