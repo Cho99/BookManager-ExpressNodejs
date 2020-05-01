@@ -1,5 +1,8 @@
 extends ../layouts/common
 
+block header
+ include ../layouts/header
+
 block content
   if user.isAdmin == true
     h1 Những đứa mượn sách

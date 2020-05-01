@@ -12,6 +12,7 @@ module.exports.authLogin = (req, res, next) => {
     return;
   }
   res.locals.user = user;
+  res.locals.url = req.protocol+"://"+req.headers.host;
   next();
 }
 

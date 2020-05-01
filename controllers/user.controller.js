@@ -43,7 +43,7 @@ module.exports.postCreate = (req, res) => {
     req.body.avatar = req.file.path.split("/").slice(1).join("/");
     cloudinary.v2.uploader.upload(url+"/"+req.body.avatar,{
       folder: "images/avatar",
-      use_filename: true
+      use_filename: true 
     });
     req.body.isAdmin = false;
     db.get("users").push(req.body).write(); 
