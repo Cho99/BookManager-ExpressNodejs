@@ -14,6 +14,18 @@
       "name": "DOg",
       "description": "IT",
       "id": "evtcWTv1i"
+    },
+    {
+      "name": "Harry Potter",
+      "description": "Live Novel",
+      "id": "S4-VaRiJr",
+      "coverUrl": "images/cover_book/f63def33bd1c0e6024a843e38c9b14a9"
+    },
+    {
+      "name": "Author_name",
+      "description": "Live Novel",
+      "id": "XpEyz93fJ",
+      "coverUrl": "images/cover_book/de2b4118a640ff9b1e0613baec43e29f"
     }
   ],
   "users": [
@@ -45,13 +57,23 @@
       "wrongLoginCount": 0
     },
     {
-      "name": "Run",
+      "name": "Harry Potter",
+      "phone": "0932171213",
+      "email": "dog@gmail.com",
+      "password": "$2b$10$5x6IPZ8.oGF0UmAC4Pf3Mup2eDMUfb3lfU9qWgOFKWGa2udXXVYVS",
+      "id": "0esfkxCqp",
+      "wrongLoginCount": 0,
+      "avatar": "images/avatar/be91c45b904d71e59bb6d621dcb8100b",
+      "isAdmin": false
+    },
+    {
+      "name": "Harry Potter",
       "phone": "0932171213",
       "email": "chanhchanh@gmail.com",
-      "password": "$2b$10$QnhnbLAMwueLbhQnpCkvJOzLdYwMJiBlJs1VIhytYyzHUZ5mkOe2S",
-      "id": "4BTYWYktd",
+      "password": "$2b$10$5li5.6gPM5f8AJdD4KeqXu3BkXIRAOWp6tma3Z5ikyhLU3XB1tc2K",
+      "id": "wpmoGcvyy",
       "wrongLoginCount": 0,
-      "avatar": "images/avatar/45191205847f8902ebfdd35b4d5553f6",
+      "avatar": "images/avatar/f6d0acdab14dfa7724f051c47da0af9b",
       "isAdmin": false
     }
   ],

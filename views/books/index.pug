@@ -12,11 +12,18 @@ block content
   table(class="table")
     thead(class="thead-light")
       tr(style="text-align:center")
+        th Cover Book
         th Name
         th Description
         th Tools
       each book in books  
-       tr(style="text-align:center")
+       tr(style="text-align:center;" class="justify-content-center")
+         if book.coverUrl !== undefined
+           td
+             img(src=`https://session-lesson22.glitch.me/${book.coverUrl}`, width="50")
+         else
+           td
+             img(src="https://cdn.glitch.com/c0b69024-6d9c-467e-a7cc-669b2269dcb3%2FThe_dog.jpg?v=1588297313683", width=60)
          td=book.name
          td=book.description
          td
