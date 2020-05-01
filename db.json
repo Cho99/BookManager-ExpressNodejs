@@ -75,6 +75,16 @@
       "wrongLoginCount": 0,
       "avatar": "images/avatar/f6d0acdab14dfa7724f051c47da0af9b",
       "isAdmin": false
+    },
+    {
+      "name": "Harry Potter",
+      "phone": "0932171213",
+      "email": "harryposter@gmail.com",
+      "password": "$2b$10$xOHjzVnKoVhgnaZQpk4RiuW7vSwMHQRphFT49fNQNJGwL5z/A46o2",
+      "id": "xIXw7FAa2",
+      "wrongLoginCount": 0,
+      "avatar": "images/avatar/2737f8342e1df7394994550505afc2ce",
+      "isAdmin": false
     }
   ],
   "transactions": [
