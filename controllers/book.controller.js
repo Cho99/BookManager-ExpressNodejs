@@ -11,16 +11,20 @@ var db = require("../db");
 
 module.exports.index = (req, res) => {
   var books = db.get("books").value();
+  var url = req.protocol+"://"+req.headers.host;
   res.render("books/index", {
-    books
+    books,
+    url
   });
 };
   
 module.exports.view = (req, res) => {
     var id = req.params.id;
     var book = db.get("books").find({id : id}).value();
+    var url = req.protocol+"://"+req.headers.host;
     res.render("books/view", {
-      book
+      book,
+      url
     });
 };
 
@@ -31,7 +35,8 @@ module.exports.getCreate = (req, res) => {
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
   req.body.coverUrl = req.file.path.split("/").slice(1).join("/");
-  cloudinary.v2.uploader.upload("https://session-lesson22.glitch.me/"+req.body.coverUrl,{
+   var url = req.protocol+"://"+req.headers.host;
+  cloudinary.v2.uploader.upload(url+"/"+req.body.coverUrl,{
     folder: "images/coverbook",
     use_filename: true
   });
@@ -43,9 +48,11 @@ module.exports.postCreate = (req, res) => {
 
 module.exports.getUpdate = (req, res) => {
   var id = req.params.id;
+  var url = req.protocol+"://"+req.headers.host;
   const book = db.get("books").find({id : id}).value();
   res.render("books/update", {
-    book
+    book,
+    url
   });
 };
 
@@ -69,11 +76,13 @@ module.exports.delete = (req, res) => {
 
 module.exports.search = (req, res) => {
   var q = req.query.q;
+  var url = req.protocol+"://"+req.headers.host;
   var matchedBooks = db.get("books").value().filter(book => {
     return book.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
   res.render("books/index", {
     value: q,
-    books: matchedBooks
+    books: matchedBooks,
+    url
   });
 };

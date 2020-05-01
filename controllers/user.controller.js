@@ -13,16 +13,20 @@ var db = require("../db");
 
 module.exports.index = (req, res) => {
   var users = db.get("users").value();
+  var url = req.protocol+"://"+req.headers.host;
   res.render("users/index", {
-    users
+    users,
+    url
   });
 };
 
 module.exports.view = (req, res) => {
   var id = req.params.id;
   var user = db.get("users").find({id : id}).value();
+  var url = req.protocol+"://"+req.headers.host;
   res.render("users/view", {
-    user
+    user,
+    url
   });
 };
 
@@ -31,12 +35,13 @@ module.exports.getCreate = (req, res) => {
 };
 
 module.exports.postCreate = (req, res) => {
+  var url = req.protocol+"://"+req.headers.host;
   bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
     req.body.id = shortid.generate();
     req.body.password = hash;
     req.body.wrongLoginCount = 0;
     req.body.avatar = req.file.path.split("/").slice(1).join("/");
-    cloudinary.v2.uploader.upload("https://session-lesson22.glitch.me/"+req.body.avatar,{
+    cloudinary.v2.uploader.upload(url+"/"+req.body.avatar,{
       folder: "images/avatar",
       use_filename: true
     });
@@ -49,8 +54,10 @@ module.exports.postCreate = (req, res) => {
 module.exports.getUpdate = (req, res) => {
   var id = req.params.id;
   var user = db.get("users").find({id : id}).value();
+  var url = req.protocol+"://"+req.headers.host;
   res.render("users/update", {
-    user
+    user,
+    url
   });
 };
 
@@ -75,12 +82,14 @@ module.exports.delete = (req, res) => {
 
 module.exports.search = (req, res) => {
   var q = req.query.q;
+  var url = req.protocol+"://"+req.headers.host;
   var matchedUsers = db.get("users").value().filter(user => {
     return user.name.toLowerCase().indexOf(q.toLowerCase()) > -1;
   });
   res.render("users/index", {
     value: q,
-    users: matchedUsers
+    users: matchedUsers,
+    url
   });
 }
 
