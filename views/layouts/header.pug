@@ -1,18 +1,15 @@
-nav.navbar.navbar-light.bg-light
-  a.navbar-brand(href='')
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  a.navbar-brand(href=url)
     img.d-inline-block.align-top(src="https://cdn.glitch.com/c0b69024-6d9c-467e-a7cc-669b2269dcb3%2Fcoders.png?v=1588236419282" width='30' height='30' alt='My Book')
-    |     Coders-X||Dog Book Shop
+    | Coders-X||Dog Book Shop
   #navbarNav.collapse.navbar-collapse
     ul.navbar-nav
-      li.nav-item.active
-        a.nav-link(href="/")
-          | Home 
       li.nav-item
-        a.nav-link(href='/books/') Book
+        a.nav-link(href='/books/') Books
       li.nav-item
-        a.nav-link(href='/users/') User
+        a.nav-link(href='/users/') Users
       li.nav-item
-        a.nav-link(href='/transactions') Transaction
+        a.nav-link(href='/transactions') Transactions
   if user
     p=user.name
         

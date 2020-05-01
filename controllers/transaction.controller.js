@@ -4,7 +4,7 @@ let db = require("../db");
 module.exports.index = (req, res) => {
   
   const page = parseInt(req.query.page) || 1;
-  const perPage = 3;
+  const perPage = 4;
   const start = (page - 1) * perPage;
   const end = page * perPage;
 
