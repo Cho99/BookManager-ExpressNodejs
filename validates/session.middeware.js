@@ -10,21 +10,18 @@ module.exports = (req, res, next) => {
       id: sessionId
     }).write();
   }
-  const id = req.signedCookies.sessionId;
+  let id = req.signedCookies.sessionId;
+  let cart = db.get("sessions").find({id : id}).get("cart").value();
  
-  if(id) {
-    // var cart = Object.values(db.get("sessions").find({id : id}).get("cart").value());
-    var cart = db.get("sessions").find({id : id}).get("cart").value();
-    console.log(id)
-    console.log(cart)
-    // let total = 0;
-    // for(let number of cart) {
-    //     total += number;
-    // }
-    // res.locals.total = total
+  if(id && cart) {
+    cart = Object.values(cart);
+    let total = 0;
+    for(let number of cart) {
+      total += number;
+    }
+    res.locals.total = total
   } else {
     res.locals.total = 0
-  }
-    
+  }    
   next();
 }
