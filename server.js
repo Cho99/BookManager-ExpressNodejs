@@ -33,9 +33,9 @@ app.get("/" ,(req, res) =>{
 //Books
 app.use("/books", bookRoute);
 //Users
-app.use("/users", userRoute);
+app.use("/users",validate.authLogin ,userRoute);
 //Transactions
-app.use("/transactions" ,transactionRoute);
+app.use("/transactions",transactionRoute);
 //auth
 app.use("/auth", authRoute);
 //cart

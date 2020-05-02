@@ -41,9 +41,9 @@ module.exports.getCreate = (req, res) => {
 
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
-    req.body.isComplete = false;
+  req.body.isComplete = false;
   db.get("transactions").push(req.body).write();
-  res.redirect(".");
+  res.redirect("back");
 };
 
 module.exports.complete = (req, res) => {

@@ -1,0 +1,31 @@
+extends ../layouts/common
+
+block header
+ include ../layouts/header
+block content
+ h1.text-center Cart
+ form(action="/transactions/create",method="POST")
+   table.table
+     .thead-light
+       tr(style="text-align:center")
+         th Book
+         th Name
+       each book in data
+        input(type="hidden", name="bookId" ,value=book.id)
+        input(type="hidden", name="userId" ,value=sessionId)
+        tr(style="text-align:center")
+         if book.coverUrl
+          td
+            img(src=`${url}/${book.coverUrl}`, width="50")
+         else 
+           td
+            img(src="https://cdn.glitch.com/c0b69024-6d9c-467e-a7cc-669b2269dcb3%2FThe_dog.jpg?v=1588297313683", width=50)
+         td= book.name
+       tr(style="text-align:center")
+         td
+           h2 Total: 
+            span= total
+         td
+           button.btn.btn-primary Mượn
+
+       
