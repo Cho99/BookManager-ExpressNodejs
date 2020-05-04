@@ -11,7 +11,9 @@ const userRoute = require("./routes/user.route");
 const bookRoute = require("./routes/book.route");
 const authRoute = require("./routes/auth.route");
 const cartRoute = require("./routes/cart.route");
- 
+const mongoose = require('mongoose');
+mongoose.connect("mongodb+srv://Dog:"+process.env.API_PASSWORD_MONGODB+"@cluster0-s7sba.gcp.mongodb.net/books-store?retryWrites=true&w=majority");
+
 const transactionRoute = require("./routes/transaction.route");
 const validate = require("./validates/auth.validate");
 const sessionMiddleware = require("./validates/session.middeware");
