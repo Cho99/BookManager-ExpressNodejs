@@ -21,7 +21,7 @@ block content
         th Tools
       each book in books  
        tr(style="text-align:center;" class="justify-content-center")
-         if book.coverUrl !== undefined
+         if book.coverUrl
            td
              img(src=`${url}/${book.coverUrl}`, width="50")
          else

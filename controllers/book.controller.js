@@ -1,5 +1,6 @@
 var shortid = require("shortid");
 var cloudinary = require("cloudinary");
+var Book = require("../models/books.model");
 
 cloudinary.config({ 
   cloud_name: 'dog99', 
@@ -9,13 +10,13 @@ cloudinary.config({
 
 var db = require("../db");
 
-module.exports.index = (req, res) => {
-  var books = db.get("books").value();
+module.exports.index = async (req, res) => {
   var url = req.protocol+"://"+req.headers.host;
+  var books =  await Book.find();
   res.render("books/index", {
-    books,
-    url
-  });
+     books,
+     url
+   }); 
 };
   
 module.exports.view = (req, res) => {
@@ -32,17 +33,16 @@ module.exports.getCreate = (req, res) => {
   res.render("books/create");
 };
 
-module.exports.postCreate = (req, res) => {
-  req.body.id = shortid.generate();
-  req.body.coverUrl = req.file.path.split("/").slice(1).join("/");
-   var url = req.protocol+"://"+req.headers.host;
-  cloudinary.v2.uploader.upload(url+"/"+req.body.coverUrl,{
+module.exports.postCreate = async (req, res) => {
+  const avatar = req.file.path.split("/").slice(1).join("/");
+  const url = req.protocol+"://"+req.headers.host+"/"+avatar;
+  await cloudinary.v2.uploader.upload(url,{
     folder: "images/coverbook",
     use_filename: true
   });
-  db.get("books")
-    .push(req.body)
-    .write();
+  req.body.coverUrl = avatar;
+  console.log(typeof req.body.coverUrl);
+  await Book.create(req.body);
   res.redirect(".");
 };
 
