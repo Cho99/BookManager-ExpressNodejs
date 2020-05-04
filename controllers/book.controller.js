@@ -19,10 +19,12 @@ module.exports.index = async (req, res) => {
    }); 
 };
   
-module.exports.view = (req, res) => {
-    var id = req.params.id;
-    var book = db.get("books").find({id : id}).value();
-    var url = req.protocol+"://"+req.headers.host;
+module.exports.view = async (req, res) => {
+    const id = req.params.id;
+    const url = req.protocol+"://"+req.headers.host;
+    console.log(id);
+    const book = await Book.findById(id);
+    console.log(book);
     res.render("books/view", {
       book,
       url
