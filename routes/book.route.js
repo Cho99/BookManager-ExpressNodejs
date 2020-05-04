@@ -16,7 +16,7 @@ router.get("/view/:id", controller.view);
 
 router.get("/update/:id", controller.getUpdate);
 
-router.post("/update", controller.postUpdate);
+router.post("/update", upload.single("coverBook"), controller.postUpdate);
 
 router.get("/:id/delete", controller.delete);
 

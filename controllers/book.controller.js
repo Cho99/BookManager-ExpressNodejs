@@ -43,36 +43,38 @@ module.exports.postCreate = async (req, res) => {
     use_filename: true
   });
   req.body.coverUrl = avatar;
-  console.log(typeof req.body.coverUrl);
   await Book.create(req.body);
   res.redirect(".");
 };
 
-module.exports.getUpdate = (req, res) => {
-  var id = req.params.id;
-  var url = req.protocol+"://"+req.headers.host;
-  const book = db.get("books").find({id : id}).value();
+module.exports.getUpdate = async (req, res) => {
+  const id = req.params.id;
+  const url = req.protocol+"://"+req.headers.host;
+  const book = await Book.findById(id);
   res.render("books/update", {
     book,
     url
   });
 };
 
-module.exports.postUpdate = (req, res) => {
+module.exports.postUpdate = async (req, res) => {
   const id = req.body.id;
   const name = req.body.name;
   const description = req.body.description;
-  db.get("books")
-    .find({id : id})
-    .assign({
-      name:name, description : description})
-    .write();
+  const coverUrl = req.file.path.split("/").slice(1).join("/");
+  
+  await Book.findOneAndUpdate({_id : id}, {
+    name,
+    description,
+    coverUrl
+  })
+  
   res.redirect(".");
 };
 
-module.exports.delete = (req, res) => {
+module.exports.delete = async (req, res) => {
   var id = req.params.id;
-  db.get("books").remove({id : id}).write();
+  await Book.findByIdAndDelete(id)
   res.redirect("back");
 };
 
