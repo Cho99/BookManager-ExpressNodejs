@@ -30,14 +30,12 @@ block content
          td=book.name
          td=book.description
          td
-           if book.id == 2
-             a(href="/books/view/"+book.id,alt="view") 
-               img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fbook.png?v=1587788199440")
-             span &nbsp
-             a(href="/books/update/"+book.id) 
-               img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Frefresh.png?v=1587788321812")
-             span &nbsp
-             a(href="/books/"+book.id+"/delete") 
-               img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fdelete.png?v=1587788387153")
-           else 
-             a.btn.btn-primary(href="/cart/add/"+book.id) Add to cart
+           a(href="/books/view/"+book.id,alt="view") 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fbook.png?v=1587788199440")
+           span &nbsp
+           a(href="/books/update/"+book.id) 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Frefresh.png?v=1587788321812")
+           span &nbsp
+           a(href="/books/"+book.id+"/delete") 
+             img(src="https://cdn.glitch.com/09102522-1ad8-417e-a9d0-89efb35eab90%2Fdelete.png?v=1587788387153")
+    
