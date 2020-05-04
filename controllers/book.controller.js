@@ -1,6 +1,6 @@
 var shortid = require("shortid");
 var cloudinary = require("cloudinary");
-var Book = require("../models/books.model");
+const Book = require("../models/books.model");
 
 cloudinary.config({ 
   cloud_name: 'dog99', 

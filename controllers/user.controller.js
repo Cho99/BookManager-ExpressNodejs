@@ -1,4 +1,5 @@
 var shortid = require("shortid");
+const User = require("../models/users.model");
 var bcrypt = require("bcrypt");
 const saltRounds = 10;
 var cloudinary = require("cloudinary");
@@ -11,19 +12,19 @@ cloudinary.config({
 
 var db = require("../db");
 
-module.exports.index = (req, res) => {
-  var users = db.get("users").value();
-  var url = req.protocol+"://"+req.headers.host;
+module.exports.index = async (req, res) => {
+  const users = await User.find();
+  const url = req.protocol+"://"+req.headers.host;
   res.render("users/index", {
     users,
     url
-  });
+  })
 };
 
-module.exports.view = (req, res) => {
+module.exports.view = async (req, res) => {
   var id = req.params.id;
-  var user = db.get("users").find({id : id}).value();
   var url = req.protocol+"://"+req.headers.host;
+  var user = await User.findById(id);
   res.render("users/view", {
     user,
     url
@@ -34,9 +35,9 @@ module.exports.getCreate = (req, res) => {
   res.render("users/create");
 };
 
-module.exports.postCreate = (req, res) => {
+module.exports.postCreate = async (req, res) => {
   var url = req.protocol+"://"+req.headers.host;
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+  await bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
     req.body.id = shortid.generate();
     req.body.password = hash;
     req.body.wrongLoginCount = 0;
@@ -46,30 +47,31 @@ module.exports.postCreate = (req, res) => {
       use_filename: true 
     });
     req.body.isAdmin = false;
-    db.get("users").push(req.body).write(); 
+    User.create(req.body);
     res.redirect(".");
   })
 };
 
-module.exports.getUpdate = (req, res) => {
-  var id = req.params.id;
-  var user = db.get("users").find({id : id}).value();
-  var url = req.protocol+"://"+req.headers.host;
+module.exports.getUpdate = async (req, res) => {
+  const id = req.params.id;
+  const url = req.protocol+"://"+req.headers.host;
+  const user = await User.findById(id);
   res.render("users/update", {
     user,
     url
   });
 };
 
-module.exports.postUpdate = (req, res) => {
-  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+module.exports.postUpdate = async (req, res) => {
+  await bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
     var id = req.body.id;
     var name = req.body.name;
     var phone = req.body.phone;
     var email = req.body.email;
     var wrongLoginCount = parseInt(req.body.wrongLoginCount);
     var password = hash;
-    db.get("users").find({id : id}).assign({name: name, phone: phone, email: email, password:password, wrongLoginCount: wrongLoginCount}).write();
+    
+    User.findOneAndUpdate({id : id}, {name: name, phone: phone, email: email, password:password, wrongLoginCount: wrongLoginCount});
     res.redirect(".");
   })
 };
