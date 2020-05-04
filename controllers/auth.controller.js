@@ -1,8 +1,8 @@
+var Auth = require("../models/auths.model");
 var bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 var cloudinary = require("cloudinary");
 const saltRounds = 10;
-
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -18,11 +18,11 @@ module.exports.login = (req, res) => {
   res.render("auth/login");
 };
 
-module.exports.postLogin = (req, res) => {
-  var email = req.body.email;
-  var password = req.body.password;
+module.exports.postLogin = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
-  var user = db.get("users").find({email : email}).value();
+  const user = await Auth.findOne({email: email});
   if(!user) {
   res.render("auth/login", {
     errors: [
@@ -31,7 +31,7 @@ module.exports.postLogin = (req, res) => {
     value : req.body
   });
   }
-  
+ 
   const mailOptions = {
     from: "no-Dog",
     to: user.email,
@@ -39,7 +39,7 @@ module.exports.postLogin = (req, res) => {
     html: '<h1>Hãy cẩn thận cho lần đăng nhập tiếp theo bạn còn 2 lần đăng nhập nữa</h1><p>Nếu bạn đăng nhập quá 4 lần tài khoản sẽ bị khóa</p>'
   };
   
-  var numberLogin =  parseInt(user.wrongLoginCount);
+  const numberLogin =  parseInt(user.wrongLoginCount);
   if(numberLogin == 3) {
     transporter.sendMail(mailOptions, function(error, info){
     if (error) {
@@ -61,7 +61,7 @@ module.exports.postLogin = (req, res) => {
    
 
   
-  bcrypt.compare(req.body.password, user.password, (err, result) => {
+  await bcrypt.compare(req.body.password, user.password, (err, result) => {
     if (result) {
         res.cookie("userId", user.id, {
           signed: true
@@ -69,7 +69,7 @@ module.exports.postLogin = (req, res) => {
         res.redirect("/");
     } else {
        numberLogin = numberLogin + 1;
-       db.get("users").find({email : email}).assign({wrongLoginCount : numberLogin}).write();
+       Auth.findOneAndUpdate({email: email}, {wrongLoginCount : numberLogin});
        res.render("auth/login", {
         errors: [
           "Wrong password"

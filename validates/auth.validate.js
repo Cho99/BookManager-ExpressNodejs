@@ -1,4 +1,5 @@
 const db = require("../db");
+const User = require("../models/users.model");
 
 module.exports.authLogin = (req, res, next) => {
   if(!req.signedCookies.userId) {
@@ -6,7 +7,7 @@ module.exports.authLogin = (req, res, next) => {
     return;
   }
   
-  const user = db.get("users").find({ id : req.signedCookies.userId}).value();
+  const user = User.findById(req.signedCookies.userId);
   if(!user) {
     res.redirect("/auth/login");
     return;
