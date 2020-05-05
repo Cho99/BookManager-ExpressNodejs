@@ -47,6 +47,10 @@ app.get("/" ,(req, res) => {
   res.render("index");
 }); 
 
+app.get("/error", (req, res) => {
+  res.render("error");
+})
+
 //Books
 app.use("/books", bookRoute);
 //Users

@@ -10,13 +10,19 @@ cloudinary.config({
 
 var db = require("../db");
 
-module.exports.index = async (req, res) => {
-  var url = req.protocol+"://"+req.headers.host;
-  var books =  await Book.find();
-  res.render("books/index", {
-     books,
-     url
-   }); 
+module.exports.index = async (req, res, next) => {
+
+  try {
+    var url = req.protocol+"://"+req.headers.host;
+    var books =  await Book.find();
+    var a; a.b();
+    res.render("books/index", {
+       books,
+       url
+     }); 
+  } catch (error) {
+    res.render("error", {error});
+  }
 };
   
 module.exports.view = async (req, res) => {

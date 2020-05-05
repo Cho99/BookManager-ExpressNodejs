@@ -21,7 +21,6 @@ module.exports.login = (req, res) => {
 module.exports.postLogin = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-
   const user = await Auth.findOne({email: email});
   if(!user) {
   res.render("auth/login", {
