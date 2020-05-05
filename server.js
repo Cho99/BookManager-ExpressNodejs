@@ -16,6 +16,7 @@ const cartRoute = require("./routes/cart.route");
 const apiBookRoute = require("./api/routes/book.route");
 const apiTransactionRoute = require("./api/routes/transaction.route");
 const apiAuthRoute = require("./api/routes/auth.route");
+const apiUserRoute = require("./api/routes/user.route");
 
 const mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://Dog:"+process.env.API_PASSWORD_MONGODB+"@cluster0-s7sba.gcp.mongodb.net/books-store?retryWrites=true&w=majority");
@@ -35,8 +36,10 @@ app.use(sessionMiddleware);
 
 
 app.use("/api/books", apiBookRoute);
-app.use("/api/transactions", apiTransactionRoute);
+app.use("/api/transactions",validate.authLogin, apiTransactionRoute);
+app.use("/api/users", apiUserRoute);
 app.use("/api/auth", apiAuthRoute);
+
 
 app.use(express.static("public"));
 
