@@ -11,6 +11,12 @@ const userRoute = require("./routes/user.route");
 const bookRoute = require("./routes/book.route");
 const authRoute = require("./routes/auth.route");
 const cartRoute = require("./routes/cart.route");
+
+//Api
+const apiBookRoute = require("./api/routes/book.route");
+const apiTransactionRoute = require("./api/routes/transaction.route");
+const apiAuthRoute = require("./api/routes/auth.route");
+
 const mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://Dog:"+process.env.API_PASSWORD_MONGODB+"@cluster0-s7sba.gcp.mongodb.net/books-store?retryWrites=true&w=majority");
 
@@ -26,9 +32,15 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(sessionMiddleware);
+
+
+app.use("/api/books", apiBookRoute);
+app.use("/api/transactions", apiTransactionRoute);
+app.use("/api/auth", apiAuthRoute);
+
 app.use(express.static("public"));
 
-app.get("/" ,(req, res) =>{
+app.get("/" ,(req, res) => {
   res.render("index");
 }); 
 
