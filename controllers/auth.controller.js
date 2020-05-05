@@ -66,7 +66,7 @@ module.exports.postLogin = async (req, res) => {
         res.cookie("userId", user.id, {
           signed: true
         });
-        res.redirect("/");
+        res.redirect("/users");
     } else {
        numberLogin = numberLogin + 1;
        Auth.findOneAndUpdate({email: email}, {wrongLoginCount : numberLogin});
