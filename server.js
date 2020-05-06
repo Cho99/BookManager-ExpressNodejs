@@ -17,9 +17,9 @@ const apiBookRoute = require("./api/routes/book.route");
 const apiTransactionRoute = require("./api/routes/transaction.route");
 const apiAuthRoute = require("./api/routes/auth.route");
 const apiUserRoute = require("./api/routes/user.route");
-
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://Dog:04101995a@cluster0-s7sba.gcp.mongodb.net/books-store?retryWrites=true&w=majority");
+
+mongoose.connect("mongodb+srv://Dog:"+process.env.API_PASSWORD_MONGODB+"@cluster0-s7sba.gcp.mongodb.net/books-store?retryWrites=true&w=majority", {useNewUrlParser: true });
 
 const transactionRoute = require("./routes/transaction.route");
 const validate = require("./validates/auth.validate");
